@@ -16,3 +16,5 @@ RoxygenNote: 7.1.2
 LinkingTo: 
     cpp11
 SystemRequirements: C++11
+URL: https://github.com/diminutive/insideclipper
+BugReports: https://github.com/diminutive/insideclipper/issues
