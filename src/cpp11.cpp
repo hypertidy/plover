@@ -12,10 +12,18 @@ extern "C" SEXP _insideclipper_InPoly_clipper(SEXP xx, SEXP yy, SEXP px, SEXP py
     return cpp11::as_sexp(InPoly_clipper(cpp11::as_cpp<cpp11::decay_t<doubles>>(xx), cpp11::as_cpp<cpp11::decay_t<doubles>>(yy), cpp11::as_cpp<cpp11::decay_t<doubles>>(px), cpp11::as_cpp<cpp11::decay_t<doubles>>(py), cpp11::as_cpp<cpp11::decay_t<doubles>>(extent)));
   END_CPP11
 }
+// insideclipper.cpp
+list inside_loop(doubles xx, doubles yy, list lpx, list lpy, list extents);
+extern "C" SEXP _insideclipper_inside_loop(SEXP xx, SEXP yy, SEXP lpx, SEXP lpy, SEXP extents) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(inside_loop(cpp11::as_cpp<cpp11::decay_t<doubles>>(xx), cpp11::as_cpp<cpp11::decay_t<doubles>>(yy), cpp11::as_cpp<cpp11::decay_t<list>>(lpx), cpp11::as_cpp<cpp11::decay_t<list>>(lpy), cpp11::as_cpp<cpp11::decay_t<list>>(extents)));
+  END_CPP11
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_insideclipper_InPoly_clipper", (DL_FUNC) &_insideclipper_InPoly_clipper, 5},
+    {"_insideclipper_inside_loop",    (DL_FUNC) &_insideclipper_inside_loop,    5},
     {NULL, NULL, 0}
 };
 }

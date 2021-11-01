@@ -3,3 +3,7 @@
 InPoly_clipper <- function(xx, yy, px, py, extent) {
   .Call(`_insideclipper_InPoly_clipper`, xx, yy, px, py, extent)
 }
+
+inside_loop <- function(xx, yy, lpx, lpy, extents) {
+  .Call(`_insideclipper_inside_loop`, xx, yy, lpx, lpy, extents)
+}

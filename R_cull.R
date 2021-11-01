@@ -36,20 +36,33 @@ lpy <- unname(split(df$y, df$ring_id))
 # ring range x,y
 lxr <- lapply(lpx, range)
 lyr <- lapply(lpy, range)
-# })
-#
-# system.time({
-## now we limit out pip test *internally*
-lpip <- vector('list', length(lpx))
-for (i in seq_along(lpx)) {
-
-   lpip [[i]] <-  insideclipper::inside_clipper(pts, cbind(lpx[[i]], lpy[[i]]), extent = c(lxr[[i]], lyr[[i]]))
-  #if (sum(lpip[[i]]) > 0) points(pts[lpip[[i]] > 0, , drop = FALSE], pch = ".")
-
-}
-
 })
 
+# #
+# system.time({
+# ## now we limit out pip test *internally*
+# lpip <- vector('list', length(lpx))
+# for (i in seq_along(lpx)) {
+#
+#    lpip [[i]] <-  insideclipper::inside_clipper(pts, cbind(lpx[[i]], lpy[[i]]), extent = c(lxr[[i]], lyr[[i]]))
+#   #if (sum(lpip[[i]]) > 0) points(pts[lpip[[i]] > 0, , drop = FALSE], pch = ".")
+#
+# }
+#
+# })
 
 
 
+
+## now in C++: pts, list of polygon rings, list of extents
+
+lex <- lxr
+for (i in seq_along(lex)) lex[[i]] <- c(lex[[i]], lyr[[i]])
+
+system.time({
+oo <- inside_clipper_loop(pts, lpx, lpy, lex)
+})
+
+wrld_simpl@proj4string@projargs[1] <- NA_character_
+library(sp)
+system.time(over(SpatialPoints(pts), as(wrld_simpl, "SpatialPolygons")))

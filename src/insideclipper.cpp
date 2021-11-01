@@ -57,20 +57,18 @@ integers InPoly_clipper(doubles xx, doubles yy, doubles px, doubles py, doubles 
   return out;
 }
 
-// #include "cpp11/list.hpp"
-//
-//
-// list inside_extentcull(doubles xx, doubles yy, list px, list py, list extents) {
-//   for (int i = 0; i < px.size(); i++)  {
-//
-//
-//     writable::writable pip(px.size());
-//     for (int j = 0; j < xx.size(); j++) {
-//       if (xx[j] >= extents(i)[0] & xx[j] <= extents(i)[1] & yy[j] >= extents(i)[2] & yy[j] <= extents(i)[3]) {
-//
-//       }
-//     }
-//   }
-//
-//   return out;
-// }
+#include "cpp11/list.hpp"
+
+[[cpp11::register]]
+list inside_loop(doubles xx, doubles yy, list lpx, list lpy, list extents) {
+  writable::list out;
+
+  for (int i = 0; i < lpx.size(); i++)  {
+    doubles polyx = lpx[i];
+    doubles polyy = lpy[i];
+    doubles extent = extents[i];
+    out.push_back(InPoly_clipper(xx, yy, polyx, polyy, extent));
+
+  }
+  return out;
+}
