@@ -4,7 +4,7 @@
 \alias{inside_clipper}
 \title{Title}
 \usage{
-inside_clipper(pts, coords)
+inside_clipper(pts, coords, extent = NULL)
 }
 \arguments{
 \item{coords}{}

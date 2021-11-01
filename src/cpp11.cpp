@@ -6,16 +6,16 @@
 #include <R_ext/Visibility.h>
 
 // insideclipper.cpp
-integers InPoly_clipper(doubles xx, doubles yy, doubles px, doubles py);
-extern "C" SEXP _insideclipper_InPoly_clipper(SEXP xx, SEXP yy, SEXP px, SEXP py) {
+integers InPoly_clipper(doubles xx, doubles yy, doubles px, doubles py, doubles extent);
+extern "C" SEXP _insideclipper_InPoly_clipper(SEXP xx, SEXP yy, SEXP px, SEXP py, SEXP extent) {
   BEGIN_CPP11
-    return cpp11::as_sexp(InPoly_clipper(cpp11::as_cpp<cpp11::decay_t<doubles>>(xx), cpp11::as_cpp<cpp11::decay_t<doubles>>(yy), cpp11::as_cpp<cpp11::decay_t<doubles>>(px), cpp11::as_cpp<cpp11::decay_t<doubles>>(py)));
+    return cpp11::as_sexp(InPoly_clipper(cpp11::as_cpp<cpp11::decay_t<doubles>>(xx), cpp11::as_cpp<cpp11::decay_t<doubles>>(yy), cpp11::as_cpp<cpp11::decay_t<doubles>>(px), cpp11::as_cpp<cpp11::decay_t<doubles>>(py), cpp11::as_cpp<cpp11::decay_t<doubles>>(extent)));
   END_CPP11
 }
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_insideclipper_InPoly_clipper", (DL_FUNC) &_insideclipper_InPoly_clipper, 4},
+    {"_insideclipper_InPoly_clipper", (DL_FUNC) &_insideclipper_InPoly_clipper, 5},
     {NULL, NULL, 0}
 };
 }
