@@ -25,9 +25,21 @@ inside_clipper <- function(pts, coords, extent = NULL) {
 #' @export
 #'
 #' @examples
-inside_clipper_loop  <- function(pts, coordsx, coordsy, extent = NULL) {
-  if (is.null(extent)) {
-    extent <- replicate(length(coordsx), 0, simplify = FALSE);
-  }
-  inside_loop(pts[,1], pts[,2], coordsx, coordsy, extent)
+inside_clipper_loop_x_y  <- function(pts, coordsx, coordsy) {
+  inside_loop_x_y(pts[,1], pts[,2], coordsx, coordsy)
+}
+
+#' Title
+#'
+#' @param pts
+#' @param coordsx
+#' @param coordsy
+#' @param extent
+#'
+#' @return
+#' @export
+#'
+#' @examples
+inside_clipper_loop_mat  <- function(pts, lcoords) {
+  inside_loop_mat(pts[,1], pts[,2], lcoords)
 }
