@@ -1,11 +1,28 @@
-sf_over <- function(pts, pol) {
+sf_over <- function(pts, pol, sfh = TRUE) {
   colnames(pts) <- c("x", "y")
   dpts <- as.data.frame(pts)
-  # dpts <-   sf::st_as_sf(dpts, coords= c("x", "y"))
-  dpts <- sfheaders::sf_point(dpts, x = "x", y = "y")
-  id_sf_list <- st_intersects(dpts, pol)
-  unlist(lapply(id_sf_list, \(.x) .x[1]))
+  if (!sfh) {
+    dpts <-   sf::st_as_sf(dpts, coords= c("x", "y"))}
+  else {
+    dpts <- sfheaders::sf_point(dpts, x = "x", y = "y")
+  }
+
+
+  ## sf still wins with st_contains()
+
+  # id_sf_list <- sf::st_intersects(dpts, pol)
+  # unlist(lapply(id_sf_list, \(.x) .x[1]))
+  #
+  id_sf_list <- sf::st_contains(pol, dpts)
+  isub <- rep(NA_integer_, dim(pts)[1L])
+  gt0 <- lengths(id_sf_list) > 0
+  element <- unlist(id_sf_list)
+  id <- rep(seq_along(id_sf_list), lengths(id_sf_list))
+  bad <- duplicated(element)
+  isub[element[!bad]] <- id[!bad]
+  isub
 }
+
 
 
 pts <- geosphere::randomCoordinates(1e5)
@@ -29,9 +46,10 @@ pts <- cbind(runif(n, ex[1], ex[2]),
 
 rbenchmark::benchmark(
 sp = id_sp <- sp::over(sp::SpatialPoints(pts), as(as_Spatial(pol), "SpatialPolygons")),
-sf = id_sf <- sf_over(pts, pol),
+sf = id_sf <- sf_over(pts, pol, sfh = F),
 ic = id_ic <- ic_over(pts, pol),
-replications = 1)
+replications = 10)
+
 
 
 #pol0 <- sf::st_geometry(pol)
