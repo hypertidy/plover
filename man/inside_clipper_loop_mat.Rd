@@ -4,7 +4,7 @@
 \alias{inside_clipper_loop_mat}
 \title{Title}
 \usage{
-inside_clipper_loop_mat(pts, lcoords)
+inside_clipper_loop_mat(pts, lcoords, xyeps = NULL)
 }
 \arguments{
 \item{extent}{}

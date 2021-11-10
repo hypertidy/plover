@@ -6,7 +6,7 @@ using namespace cpp11;
 // fixme could be per dataset
 // clipper only works with integers, so double values have to be multiplied by
 // this amount before converting to int:
-//const long long mult = 1e6;
+const long long mult = 1e6;
 
 
 [[cpp11::register]]
@@ -16,10 +16,10 @@ integers InPoly_clipper(doubles xx, doubles yy, doubles px, doubles py, doubles 
   int n = xx.size();
   // fixme mult isn't enough, need offset/scale for precision
   for (size_t j = 0; j < px.size (); j++) {
-    // path << ClipperLib::IntPoint (round (px [j] * mult),
-    //                               round (py [j] * mult));
-        path << ClipperLib::IntPoint (round((px [j] - xyeps[0])/xyeps[2]),
-                                      round ((py [j] - xyeps[1])/xyeps[2]));
+     path << ClipperLib::IntPoint (round (px [j] * mult),
+                                   round (py [j] * mult));
+        // path << ClipperLib::IntPoint (round((px [j] - xyeps[0])/xyeps[2]),
+        //                               round ((py [j] - xyeps[1])/xyeps[2]));
 
   }
   writable::integers out; //(n);
@@ -28,8 +28,11 @@ integers InPoly_clipper(doubles xx, doubles yy, doubles px, doubles py, doubles 
     // we aren't doing point in box test here because it's faster to do as a set upfront and pass
     // in only those points here (because we do tests across sets of rings for even/odd)
       const ClipperLib::IntPoint pj =
-        ClipperLib::IntPoint (round ((xx [j] - xyeps[0])/xyeps[2]),
-                              round ((yy [j] - xyeps[1])/xyeps[2]));
+        ClipperLib::IntPoint (round (xx[j] * mult),
+                              round (yy [j] * mult));
+      // const ClipperLib::IntPoint pj =
+      //   ClipperLib::IntPoint (round ((xx [j] - xyeps[0])/xyeps[2]),
+      //                         round ((yy [j] - xyeps[1])/xyeps[2]));
       int pip = ClipperLib::PointInPolygon (pj, path);
       // we are return a test for every point because we then compare across sets of rings
       // for even/odd (so, could be sparse here too but needs unpacking outside)
@@ -85,7 +88,7 @@ list inside_loop_mat(doubles xx, doubles yy, list lpxy, doubles xyeps) {
     cpp11::doubles_matrix<cpp11::by_column> mat = lpxy[i];
     for (int j = 0; j < mat.nrow(); j++){
      polyx.push_back(mat(j, 0));
-     polyy.push_back(mat(j, 0));
+     polyy.push_back(mat(j, 1));
     }
 
 
