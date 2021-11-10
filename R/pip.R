@@ -40,6 +40,6 @@ inside_clipper_loop_x_y  <- function(pts, coordsx, coordsy) {
 #' @export
 #'
 #' @examples
-inside_clipper_loop_mat  <- function(pts, lcoords) {
-  inside_loop_mat(pts[,1], pts[,2], lcoords)
+inside_clipper_loop_mat  <- function(pts, lcoords, xyeps = NULL) {
+  inside_loop_mat(pts[,1], pts[,2], lcoords, xyeps = xyeps)
 }

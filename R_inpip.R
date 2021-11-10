@@ -23,9 +23,9 @@ n <- 1e5
 pts <- cbind(runif(n, ex[1], ex[2]),
              runif(n, ex[3], ex[4]))
 
-rr <- raster::raster(raster::extent(ex), res = 5000)
-
-plot(setValues(rr, ic_over(coordinates(rr), pol)))
+# rr <- raster::raster(raster::extent(ex), res = 5000)
+#
+# plot(setValues(rr, ic_over(coordinates(rr), pol)))
 
 rbenchmark::benchmark(
 sp = id_sp <- sp::over(sp::SpatialPoints(pts), as(as_Spatial(pol), "SpatialPolygons")),
@@ -36,11 +36,24 @@ replications = 1)
 
 #pol0 <- sf::st_geometry(pol)
 #pol0 <- sf::st_sfc(silicate::sfzoo$polygon)
-ic_over <- function(pts, pol0) {
+ic_over <- function(pts, pol0, xyeps = NULL) {
   if (inherits(pol0, "sf")) {
     pol0 <- sf::st_geometry(pol0)
   }
-  bb <- lapply(pol0, \(.x) unname(sf::st_bbox(.x))[c(1, 3, 2, 4)])
+  ##bb <- lapply(pol0, \(.x) unname(sf::st_bbox(.x))[c(1, 3, 2, 4)])
+  bb <- lapply(pol0, \(.x) {
+      rct <- wk::wk_bbox(.x)
+     c(vctrs::field(rct, "xmin"), vctrs::field(rct, "xmax"), vctrs::field(rct, "ymin"), vctrs::field(rct, "ymax"))
+  })
+if (is.null(xyeps)) {
+  rct <- wk::wk_bbox(pol0)
+  xr <- c(vctrs::field(rct, "xmin"), vctrs::field(rct, "xmax"))
+  yr <- c(vctrs::field(rct, "ymin"), vctrs::field(rct, "ymax"))
+  xyeps <- c(mean(xr), mean(yr), max(diff(xr), diff(yr))/1e9)
+}
+  # xr <- lapply(bb, "[", c(1L, 2L))
+  # yr <- lapply(bb, "[", c(3L, 4L))
+
   l <- insideclipper:::inside_point_cull(pts[,1], pts[,2], bb)
 
 
@@ -57,7 +70,7 @@ ic_over <- function(pts, pol0) {
                     ppi <- pol0[[.x]]
                    }
 
-                  icl <- insideclipper:::inside_clipper_loop_mat(pts[ix, , drop = FALSE], ppi)
+                  icl <- insideclipper:::inside_clipper_loop_mat(pts[ix, , drop = FALSE], ppi, xyeps = xyeps)
 
                   icl <- unlist(icl, use.names = FALSE)
 
