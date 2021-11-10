@@ -2,16 +2,26 @@
 % Please edit documentation in R/pip.R
 \name{inside_clipper}
 \alias{inside_clipper}
-\title{Title}
+\title{Inside with clipper lib}
 \usage{
 inside_clipper(pts, coords, extent = NULL)
 }
 \arguments{
-\item{coords}{}
+\item{pts}{matrix of points 2 columns x,y}
+
+\item{coords}{matrix of polygon ring 2 columns x,y}
+
+\item{extent}{optional extents (WIP)}
 }
 \value{
-
+integer vector of point in polygon status, see Details
 }
 \description{
-Title
+Call the clipper lib ...
+}
+\details{
+WIP
+}
+\examples{
+inside_clipper(matrix(runif(10), ncol = 2), cbind(c(0, .5, .5, 0, 0), c(0, 0, .5, 0, 0)))
 }

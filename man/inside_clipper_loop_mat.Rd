@@ -2,16 +2,24 @@
 % Please edit documentation in R/pip.R
 \name{inside_clipper_loop_mat}
 \alias{inside_clipper_loop_mat}
-\title{Title}
+\title{Loop inside clipper polygon as matrixes}
 \usage{
 inside_clipper_loop_mat(pts, lcoords, xyeps = NULL)
 }
 \arguments{
-\item{extent}{}
+\item{pts}{matrix of points}
+
+\item{lcoords}{list of matrixes}
+
+\item{xyeps}{offset x, offset y, precision}
 }
 \value{
-
+list
 }
 \description{
-Title
+Loop clipper
+}
+\examples{
+inside_clipper_loop_mat(matrix(runif(10), ncol = 2),
+ list(cbind(c(0, .5, .5, 0, 0), c(0, 0, .5, 0, 0))))
 }

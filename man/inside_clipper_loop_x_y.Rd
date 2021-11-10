@@ -2,16 +2,24 @@
 % Please edit documentation in R/pip.R
 \name{inside_clipper_loop_x_y}
 \alias{inside_clipper_loop_x_y}
-\title{Title}
+\title{Loop inside clipper polygon as vectors}
 \usage{
 inside_clipper_loop_x_y(pts, coordsx, coordsy)
 }
 \arguments{
-\item{extent}{}
+\item{pts}{matrix of points}
+
+\item{coordsx}{list of vectors  polygon x}
+
+\item{coordsy}{list of vectors polygon y}
 }
 \value{
-
+list
 }
 \description{
-Title
+Loop cliper
+}
+\examples{
+inside_clipper_loop_x_y(matrix(runif(10), ncol = 2), list(c(0, .5, .5, 0, 0)),
+list(c(0, 0, .5, 0, 0)))
 }

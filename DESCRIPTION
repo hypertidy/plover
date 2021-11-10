@@ -18,3 +18,9 @@ LinkingTo:
 SystemRequirements: C++11
 URL: https://github.com/diminutive/insideclipper
 BugReports: https://github.com/diminutive/insideclipper/issues
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    vctrs,
+    wk

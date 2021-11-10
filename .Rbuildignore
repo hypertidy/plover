@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^R_cull.R$
 ^R_inpip.R$
+^README\.Rmd$
+^CODE_OF_CONDUCT\.md$
+^\.github$
+^LICENSE\.md$

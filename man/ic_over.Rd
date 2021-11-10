@@ -2,16 +2,23 @@
 % Please edit documentation in R/ic_over.R
 \name{ic_over}
 \alias{ic_over}
-\title{Title}
+\title{insidclipper 'over(pts, polygons)' point in polygon lookup}
 \usage{
 ic_over(pts, pol0, xyeps = NULL)
 }
 \arguments{
-\item{xyeps}{}
+\item{pts}{matrix of points}
+
+\item{pol0}{list of polygon matrices (or sf, sfc_M/POLYGON)}
+
+\item{xyeps}{offset,precision (WIP)}
 }
 \value{
-
+integer of polygon
 }
 \description{
-Title
+point in polygon
+}
+\examples{
+ic_over(matrix(runif(10), ncol = 2), list(c(0, .5, .5, 0, 0)))
 }
