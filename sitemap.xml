@@ -19,6 +19,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
     <loc>/reference/ic_over.html</loc>
   </url>
   <url>
@@ -34,6 +37,9 @@
     <loc>/reference/inside_clipper_loop_x_y.html</loc>
   </url>
   <url>
-    <loc>/reference/insideclipper-package.html</loc>
+    <loc>/reference/inside_orourke.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plover-package.html</loc>
   </url>
 </urlset>
