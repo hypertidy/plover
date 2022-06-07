@@ -1,4 +1,4 @@
 library(testthat)
-library(insideclipper)
+library(plover)
 
-test_check("insideclipper")
+test_check("plover")

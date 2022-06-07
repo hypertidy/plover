@@ -1,23 +1,23 @@
-Package: insideclipper
+Package: plover
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Michael D.",
            family = "Sumner",
            role = c("aut", "cre"),
            email = "mdsumner@gmail.com")
-Description: What the package does (one paragraph).
+Description: Point in polygon. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: es
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 LinkingTo: 
     cpp11
 SystemRequirements: C++11
-URL: https://github.com/diminutive/insideclipper
-BugReports: https://github.com/diminutive/insideclipper/issues
+URL: https://github.com/hypertidy/plover
+BugReports: https://github.com/hypertidy/plover/issues
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
